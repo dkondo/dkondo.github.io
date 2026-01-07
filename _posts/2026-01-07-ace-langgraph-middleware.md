@@ -2,7 +2,7 @@
 layout: post
 title: "Stanford's Agentic Context Engineering (ACE) as LangGraph Middleware"
 date: 2026-01-07
-excerpt: "Adds ACE middleware that enables agents to self-improve through an evolving playbook. Includes reflector for analyzing responses and curator for adding insights."
+excerpt: "I was inspired to enable ACE in popular agentic framework LangChain v1 / LangGraph by implementing it as a "middleware", ie, a simple agent abstraction."
 ---
 
 I recently heard a talk about ACE (Agentic Context Engineering) developed at Stanford.  This technique enables agents to self-improve, treating context as an evolving playbook that accumulates and refines strategies through a process of reflection and curation.  

@@ -7,7 +7,7 @@ excerpt: "Adds ACE middleware that enables agents to self-improve through an evo
 
 I recently heard a talk about ACE (Agentic Context Engineering) developed at Stanford.  This technique enables agents to self-improve, treating context as an evolving playbook that accumulates and refines strategies through a process of reflection and curation.  
 
-More details from the Stanford paper here: https://arxiv.org/abs/2510.04618
+More details from the Stanford paper here: [Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models](https://arxiv.org/abs/2510.04618)
 
 I was inspired to enable ACE in popular agentic framework LangChain v1 / LangGraph by implementing it as a "middleware", ie, a simple agent abstraction.
 
@@ -22,8 +22,7 @@ agent: Any = create_agent(
 )
 ```
 
-An initial implementation is here:
-https://github.com/langchain-ai/langchain/pull/34405
+An initial implementation is here: [PR #34405: langchain-ai/langchain](https://github.com/langchain-ai/langchain/pull/34405)
 
 This implements implements the following
 
@@ -31,3 +30,5 @@ This implements implements the following
 2. A curator that periodically adds new insights to the playbook based on reflections
 
 These entities work in the background using wrappers and hooks provided by LangChain v1's middleware.
+
+Any feedback is welcome, and hope it helps.

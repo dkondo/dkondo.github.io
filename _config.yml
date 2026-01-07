@@ -1,0 +1,32 @@
+title: "ChatDPK"
+description: "Blog of Derrick Kondo - Exploring ideas in AI, software, and systems"
+author: Derrick Kondo
+url: "https://dkondo.github.io"
+baseurl: ""
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Minima theme settings
+minima:
+  skin: custom
+
+# Permalink structure
+permalink: /posts/:title/
+
+# Markdown processing
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+

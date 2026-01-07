@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<a href="{{ '/' | relative_url }}" class="back-link">← Back to blog</a>
+
+<article class="card">
+    <header class="post-header">
+        <div class="post-meta">{{ page.date | date: "%B %-d, %Y" }}</div>
+        <h1 class="post-title">{{ page.title }}</h1>
+        {% if page.status == "wip" %}
+        <span class="post-status">Work in Progress</span>
+        {% endif %}
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+</article>

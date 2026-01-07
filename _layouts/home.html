@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<header class="site-header">
+    <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+    <p class="subtitle">{{ site.description | split: ' - ' | last }}</p>
+</header>
+
+<main>
+    <ul class="post-list">
+        {% for post in site.posts %}
+        <li>
+            <article class="card">
+                <div class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+                <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}{% if post.status == "wip"
+                        %} (WIP){% endif %}</a></h2>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncatewords: 40 }}
+                </div>
+                {% if post.status == "wip" %}
+                <span class="post-status">Work in Progress</span>
+                {% endif %}
+                <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
+            </article>
+        </li>
+        {% endfor %}
+    </ul>
+</main>

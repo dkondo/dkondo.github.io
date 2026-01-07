@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChatDPK</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f1e8;
+      --bg-ink: #171717;
+      --paper: #fffdf8;
+      --muted: #6f6a61;
+      --accent: #2a6f62;
+      --accent-2: #b45e3c;
+      --line: #e6ded2;
+      --shadow: 0 18px 40px rgba(24, 24, 24, 0.08);
+      --radius: 18px;
+      --maxw: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", serif;
+      color: var(--bg-ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(180, 94, 60, 0.12), transparent 55%),
+        radial-gradient(circle at 90% 15%, rgba(42, 111, 98, 0.12), transparent 60%),
+        linear-gradient(135deg, #faf6ef 0%, #f3ede3 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+      display: grid;
+      gap: 40px;
+    }
+
+    header {
+      display: grid;
+      gap: 16px;
+      padding: 28px 28px 24px;
+      background: var(--paper);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      animation: float-in 600ms ease-out both;
+    }
+
+    .title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .site-title {
+      font-size: clamp(2.2rem, 2.8vw, 3.4rem);
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 0;
+      max-width: 48ch;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    nav a {
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 200ms ease;
+    }
+
+    nav a:hover {
+      border-color: var(--accent);
+    }
+
+    .intro {
+      display: grid;
+      gap: 16px;
+    }
+
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .metrics span {
+      background: #f1ebe1;
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+    }
+
+    .posts {
+      display: grid;
+      gap: 24px;
+    }
+
+    .posts-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+    }
+
+    .posts-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .posts-header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .post-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .post-card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      padding: 22px 22px 18px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+      min-height: 220px;
+      animation: rise-in 700ms ease-out both;
+    }
+
+    .post-card:nth-child(1) { animation-delay: 120ms; }
+    .post-card:nth-child(2) { animation-delay: 220ms; }
+    .post-card:nth-child(3) { animation-delay: 320ms; }
+    .post-card:nth-child(4) { animation-delay: 420ms; }
+    .post-card:nth-child(5) { animation-delay: 520ms; }
+    .post-card:nth-child(6) { animation-delay: 620ms; }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .post-title {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    .post-excerpt {
+      margin: 0;
+      color: #423f3a;
+      line-height: 1.5;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      background: rgba(42, 111, 98, 0.12);
+      color: var(--accent);
+      border-radius: 999px;
+      border: 1px solid rgba(42, 111, 98, 0.2);
+    }
+
+    .read-link {
+      font-size: 0.95rem;
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+    }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 36px 18px 56px;
+      }
+
+      header {
+        padding: 24px 20px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .posts-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-row">
+        <div>
+          <p class="tagline">Field notes, product experiments, and quiet observations.</p>
+          <h1 class="site-title">ChatDPK</h1>
+        </div>
+        <nav>
+          <a href="#latest">Latest</a>
+          <a href="#series">Series</a>
+          <a href="#about">About</a>
+        </nav>
+      </div>
+      <div class="intro">
+        <p>Each post is part of a running collection. Browse the latest entries, or jump into a themed series when you want a longer arc.</p>
+        <div class="metrics">
+          <span>13 essays</span>
+          <span>4 ongoing series</span>
+          <span>Updated weekly</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="posts" id="latest">
+      <div class="posts-header">
+        <h2>Latest notes</h2>
+        <p>Short reads you can pick up out of order.</p>
+      </div>
+      <div class="post-grid">
+        <article class="post-card">
+          <div class="post-meta">
+            <span>Jan 03, 2025</span>
+            <span>6 min read</span>
+          </div>
+          <h3 class="post-title">The rehearsal before the launch</h3>
+          <p class="post-excerpt">A checklist for the last 48 hours: what to cut, what to rehearse, and why the quietest room can be the best signal.</p>
+          <div class="tags">
+            <span class="tag">Launches</span>
+            <span class="tag">Operations</span>
+          </div>
+          <a class="read-link" href="#">Read entry →</a>
+        </article>
+
+        <article class="post-card">
+          <div class="post-meta">
+            <span>Dec 21, 2024</span>
+            <span>4 min read</span>
+          </div>
+          <h3 class="post-title">A dashboard that invites curiosity</h3>
+          <p class="post-excerpt">Notes on framing metrics as stories: highlight tension, keep a visible trail, and leave one unanswered question.</p>
+          <div class="tags">
+            <span class="tag">Design</span>
+            <span class="tag">Metrics</span>
+          </div>
+          <a class="read-link" href="#">Read entry →</a>
+        </article>
+
+        <article class="post-card">
+          <div class="post-meta">
+            <span>Dec 07, 2024</span>
+            <span>8 min read</span>
+          </div>
+          <h3 class="post-title">Slicing a roadmap into experiments</h3>
+          <p class="post-excerpt">Turning long-term bets into week-sized experiments without losing the arc. A practical template and examples.</p>
+          <div class="tags">
+            <span class="tag">Strategy</span>
+            <span class="tag">Experiments</span>
+          </div>
+          <a class="read-link" href="#">Read entry →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="posts" id="series">
+      <div class="posts-header">
+        <h2>Series to follow</h2>
+        <p>Multi-part threads that build on each other.</p>
+      </div>
+      <div class="post-grid">
+        <article class="post-card">
+          <div class="post-meta">
+            <span>Series · 5 parts</span>
+            <span>In progress</span>
+          </div>
+          <h3 class="post-title">Calm systems for intense teams</h3>
+          <p class="post-excerpt">A running guide to building rituals that protect focus: intake rules, weekly rhythm, and reset playbooks.</p>
+          <div class="tags">
+            <span class="tag">Leadership</span>
+            <span class="tag">Rituals</span>
+          </div>
+          <a class="read-link" href="#">View series →</a>
+        </article>
+
+        <article class="post-card">
+          <div class="post-meta">
+            <span>Series · 3 parts</span>
+            <span>Ongoing</span>
+          </div>
+          <h3 class="post-title">Interfaces that feel handwritten</h3>
+          <p class="post-excerpt">Exploring texture, typography, and pace in modern UI. Case studies, patterns, and the tools behind them.</p>
+          <div class="tags">
+            <span class="tag">UI</span>
+            <span class="tag">Typography</span>
+          </div>
+          <a class="read-link" href="#">View series →</a>
+        </article>
+
+        <article class="post-card">
+          <div class="post-meta">
+            <span>Series · 4 parts</span>
+            <span>Planned</span>
+          </div>
+          <h3 class="post-title">Signal hunting in noisy channels</h3>
+          <p class="post-excerpt">Fieldwork on interviews, feedback loops, and when to trust a single intense signal over fifty light ones.</p>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">Growth</span>
+          </div>
+          <a class="read-link" href="#">View series →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="posts" id="about">
+      <div class="posts-header">
+        <h2>About ChatDPK</h2>
+        <p>Short context for readers and collaborators.</p>
+      </div>
+      <div class="post-grid">
+        <article class="post-card">
+          <h3 class="post-title">What to expect</h3>
+          <p class="post-excerpt">Notes on product craft, thoughtful operations, and the small, repeatable habits that help teams move with clarity.</p>
+          <div class="tags">
+            <span class="tag">Purpose</span>
+            <span class="tag">Reader guide</span>
+          </div>
+          <a class="read-link" href="#">Start here →</a>
+        </article>
+
+        <article class="post-card">
+          <h3 class="post-title">Subscribe for new entries</h3>
+          <p class="post-excerpt">Join the weekly digest to get new posts, series updates, and early drafts directly in your inbox.</p>
+          <div class="tags">
+            <span class="tag">Newsletter</span>
+            <span class="tag">Updates</span>
+          </div>
+          <a class="read-link" href="#">Join the list →</a>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>© 2025 ChatDPK. All rights reserved.</span>
+      <span><a href="#">RSS</a> · <a href="#">Contact</a></span>
+    </div>
+  </div>
+</body>
+</html>
